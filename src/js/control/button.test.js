@@ -1,3 +1,4 @@
+/*jshint undef:false, strict:false*/ // Note: to avoid having to write QUnit.module, etc
 module('Control.Button', {
     setup: function () {
         $('<button id="next"></button>').appendTo('#qunit-fixture');

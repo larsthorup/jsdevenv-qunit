@@ -9,7 +9,7 @@ module.exports = function (grunt) {
 
     // convenience
     grunt.registerTask('default', ['lint', 'test']);
-    grunt.registerTask('all', ['clean', 'lint', 'test', 'coverage', 'bundle']);
+    grunt.registerTask('all', ['clean', 'lint', 'test', 'coverage']);
 
     // continuous integration
     grunt.registerTask('ci', ['lint', 'qunit:src']);
@@ -41,8 +41,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-qunit');
     gruntConfig.qunit = {
         src: ['src/test/index.html'],
-        serve: { options: { urls: ['http://localhost:8082/test/index.html']}},
-        bundle: ['output/bundle/test/index.html']
+        serve: { options: { urls: ['http://localhost:8082/test/index.html']}}
     };
     grunt.loadNpmTasks('grunt-qunit-junit');
     gruntConfig.qunit_junit = {
@@ -92,35 +91,6 @@ module.exports = function (grunt) {
         }
     };
     grunt.registerTask('coverage', 'qunit-cov');
-
-
-    // bundle
-    grunt.loadNpmTasks('grunt-contrib-requirejs');
-    gruntConfig.requirejs = {
-        bundle: {
-            options: {
-                name: 'main',
-                appDir: 'src',
-                baseUrl: 'js',
-                mainConfigFile: 'src/js/requireConfig.js',
-                dir: 'output/optimized'
-            }
-        }
-    };
-    grunt.loadNpmTasks('grunt-contrib-copy');
-    gruntConfig.copy = {
-        bundle: {
-            files: {
-                'output/bundle/': [
-                    'output/optimized/index.html',
-                    'output/optimized/lib/require.min.js',
-                    'output/optimized/js/requireConfig.js',
-                    'output/optimized/js/main.js'
-                ]
-            }
-        }
-    };
-    grunt.registerTask('bundle', ['requirejs:bundle', 'copy:bundle']);
 
 
     // grunt
